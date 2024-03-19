@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8964911344051677343}
   - component: {fileID: 2950885041017183640}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Bullet 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.13333334, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -189,28 +189,28 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.16250253
-        inSlope: 0
-        outSlope: 0
+        value: 0.1625
+        inSlope: -0.047120247
+        outSlope: -0.047120247
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.312955
       - serializedVersion: 3
-        time: 0.503
+        time: 0.5034561
         value: 0
-        inSlope: -1.1219697
-        outSlope: -1.1219697
+        inSlope: -1.0710243
+        outSlope: -1.0710243
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.38022998
+        inWeight: 0.28362644
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.8018868, g: 0.124065444, b: 0.124065444, a: 1}
+      key0: {r: 0, g: 0.18190622, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
     [Header("# Movement Var")]
     [SerializeField] private float moveSpeed;
@@ -73,6 +73,5 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
-
 
 }
