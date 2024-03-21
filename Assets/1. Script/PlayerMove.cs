@@ -64,7 +64,6 @@ public class PlayerMove : MonoBehaviour
         {
             dashCurCoolTime = 0;
             isDash = false;
-            trailObj.emitting = true;
             Vector3 dashVec = inputVec * dashForce;
             transform.position = Vector3.Lerp(transform.position, transform.position += dashVec, 10.0f * Time.deltaTime);
 
