@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
         rigid.AddForce(transform.up * bulletSpeed, ForceMode2D.Impulse);
 
         // Test :: Destory Object
-        Destroy(this.gameObject, 0.5f);
+        Destroy(this.gameObject, 1.5f);
     }
 
     private Color SetColor(int index)
