@@ -7,7 +7,9 @@ using UnityEngine;
 public class PlayerAttackCtrl : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private GameObject weaponObj;
+    [SerializeField] private GameObject weaponObject;
+
+
 
     [Header("[# Cooltime Var Header]")]
     [SerializeField] private float curFireCooltime;
@@ -22,7 +24,7 @@ public class PlayerAttackCtrl : MonoBehaviour
     private void Awake()
     {
         // Test :: GetCompoenet 
-        weaponSpriteRdr = weaponObj.GetComponent<SpriteRenderer>();
+        weaponSpriteRdr = weaponObject.GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -31,20 +33,8 @@ public class PlayerAttackCtrl : MonoBehaviour
         Fire();
     }
 
-    // F :: 총알 발사 쿨타임 함수
-    private void FireCooltime()
-    {
-        // 현재 쿨타임이 발사 쿨타임에 도달했다면
-        if (curFireCooltime >= fireCooltime)
-        {   
-            isFire = true;
-            return;
-        }
-        curFireCooltime += Time.deltaTime;
-
-    }
-
-    // F :: 총알 발사 함수 
+    #region [# Bullet Fire region]
+    // Function :: 총알 발사 함수 
     private void Fire()
     {
         // Key Value 를 입력하면 총알 발사
@@ -55,19 +45,32 @@ public class PlayerAttackCtrl : MonoBehaviour
             curFireCooltime = 0.0f;
             // 무기 스프라이트 표시
             StartCoroutine(ChangeWeaponSprite());
-            // 총알 발사 
 
+            // 총알 발사 
             GameObject bullet = PoolManager.Instance.GetObject("BULLET");
             // 생성한 Bullet 위치 초기화
-            bullet.transform.position = weaponObj.transform.position;
+            bullet.transform.position = weaponObject.transform.position;
         }
     }
 
-    // F :: 무기 스프라이트 바꾸기 함수
+    // Function :: 총알 발사 쿨타임 함수
+    private void FireCooltime()
+    {
+        // 현재 쿨타임이 발사 쿨타임에 도달했다면
+        if (curFireCooltime >= fireCooltime)
+        {
+            isFire = true;
+            return;
+        }
+        curFireCooltime += Time.deltaTime;
+    }
+    #endregion
+
+    // Function :: 무기 스프라이트 바꾸기 함수
     private IEnumerator ChangeWeaponSprite()
     {
         // GunWeapon Object 활성화
-        weaponObj.SetActive(true);
+        weaponObject.SetActive(true);
 
         // Sprite Color 바꿔주기 
         int randomColorIndex = Random.Range(0, 3);
@@ -75,10 +78,10 @@ public class PlayerAttackCtrl : MonoBehaviour
 
         // 일정시간 후 GunWeapon Object 비활성화        
         yield return new WaitForSeconds(0.3f);
-        weaponObj.SetActive(false);
+        weaponObject.SetActive(false);
     }
 
-    // F :: 색상 설정 함수
+    // Function :: 색상 설정 함수
     private Color SetColor(int index)
     {
         Color _color;
@@ -95,5 +98,4 @@ public class PlayerAttackCtrl : MonoBehaviour
         // color 값 반환 
         return _color;
     }
-
 }

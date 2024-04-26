@@ -42,6 +42,7 @@ public class PlayerMoveCtrl : MonoBehaviour
          anim.SetFloat(hashMove, inputDir);
     }
 
+    // Function :: 입력한 키를 받아오는 함수
     public void OnMove(InputAction.CallbackContext context)
     {
         // 입력한 키 값을 가져오기

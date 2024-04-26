@@ -25,7 +25,8 @@ public class Bullet : MonoBehaviour
         // 일정 시간 후 풀로 리턴
         PoolManager.Instance.ReturnObject(this.gameObject, "BULLET", 2.0f);
     }
-    
+
+    // Function :: 색을 설정해주는 함수
     private Color SetColor(int index)
     {
         Color _color;
