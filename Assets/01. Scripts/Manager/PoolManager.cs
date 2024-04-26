@@ -10,21 +10,26 @@ using UnityEngine.Pool;
 [System.Serializable]
 public class ObjectPoolData
 {
+    [Header("[# Pool Key and Index]")]
     public string keyName; // 키 이름 
-    public GameObject prefab; // 오브젝트 프리팹
+    public int index; // 리스트 내에서의 객체 순서를 나타내는 인덱스
+
+    [Header("[# Obejct Pool Settings]")]
+    public Transform parentTransform; // 부모 오브젝트 
+    public GameObject objectPrefab; // 오브젝트 프리팹
     public int initObejctCount; // 오브젝트 초기 생성 개수
 }
 
 // 다중 오브젝트 풀링을 관리하는 클래스 
 public class PoolManager : MonoBehaviour
 {
-    // PoolManager 클래스의 싱글톤 인스턴스
+    // PoolManager 의 싱글톤 인스턴스
     public static PoolManager Instance { get; private set; }
 
-    // 각 오브젝트 풀의 "키 이름", "프리팹", "오브젝트 생성 개수"를 관리하는 배열 변수 
-    [SerializeField] private ObjectPoolData[] objectPoolDatas;
+    // 오브젝트 풀 설정 정보를 저장하는 리스트
+    [SerializeField] private List<ObjectPoolData> objectPoolSettings;
 
-    // 생성된 오브젝트 풀들을 저장할 딕셔너리 
+    // 키 이름에 따라 생성된 오브젝트 풀을 관리하는 딕셔너리
     private Dictionary<string, Queue<GameObject>> objectPools = new Dictionary<string, Queue<GameObject>>();
 
     private void Awake()
@@ -35,18 +40,15 @@ public class PoolManager : MonoBehaviour
     private void Start()
     {
         Initialized();
-
-        foreach(KeyValuePair<string, Queue<GameObject>> pool in objectPools)
-        {
-            Debug.Log($"{pool.Key} : {pool.Value.Count}");
-        }
     }
 
-    // ObjectPools 초기화하는 함수 
+    /// <summary>
+    /// ObjectPools를 초기화하는 함수입니다.
+    /// </summary>
     private void Initialized()
     {
         // 데이터 배열의 길이를 확인하기 
-        int length = objectPoolDatas.Length;
+        int length = objectPoolSettings.Count;
         // 데이터가 없으면 초기화를 종료하기
         if (length == 0) return;
 
@@ -60,26 +62,32 @@ public class PoolManager : MonoBehaviour
             Queue<GameObject> objQueue = new Queue<GameObject>();
 
             // 오브젝트의 부모가 될 오브젝트 생성 
-            GameObject poolParentObj = new GameObject($"{objectPoolDatas[idx].keyName} Parent Obj");
+            GameObject poolParentObj = new GameObject($"{objectPoolSettings[idx].keyName} Parent Obj");
+            objectPoolSettings[idx].parentTransform = poolParentObj.transform;
             poolParentObj.transform.SetParent(this.transform);
 
             // 지정된 개수만큼 오브젝트를 생성하기 위한 반복문 
-            for (int idxx = 0; idxx < objectPoolDatas[idx].initObejctCount; idxx++)
+            for (int idxx = 0; idxx < objectPoolSettings[idx].initObejctCount; idxx++)
             {
                 // 생성된 오브젝트를  Queue 에 넣기
                 objQueue.Enqueue(CreateObject(idx, poolParentObj.transform));
             }
 
             // 3. obejctPoolsData[idx] 의 키 이름과 오브젝트를 넣은 Queue를 딕셔너리에 추가
-            objectPools.Add(objectPoolDatas[idx].keyName, objQueue);
+            objectPools.Add(objectPoolSettings[idx].keyName, objQueue);
         }
     }
 
-    // 지정된 인덱스의 프리팹을 생성하는 함수 
+    /// <summary>
+    /// 지정된 인덱스의 프리팹을 생성하는 함수입니다.
+    /// </summary>
+    /// <param name="idx">생성할 오브젝트 인덱스</param>
+    /// <param name="parent">생성된 오브젝트의 부모</param>
+    /// <returns>생성된 오브젝트</returns>
     private GameObject CreateObject(int idx, Transform parent)
     {
         // 오브젝트 생성 
-        GameObject obj = Instantiate(objectPoolDatas[idx].prefab);
+        GameObject obj = Instantiate(objectPoolSettings[idx].objectPrefab);
 
         // 생성된 오브젝트를 parent 의 자식 오브젝트로 설정
         obj.transform.SetParent(parent);
@@ -91,17 +99,81 @@ public class PoolManager : MonoBehaviour
         return obj;
     }
 
-    // 사용하지 않는 중인  오브젝트 가져오는 함수
-    public GameObject GetObject(string objName)
+    /// <summary>
+    /// 사용하지 않는 오브젝트를 가져오는 함수입니다.
+    /// </summary>
+    /// <param name="keyName">가져올 오브젝트의 풀의 키 이름</param>
+    /// <returns>사용할 수 있는 오브젝트</returns>
+    public GameObject GetObject(string keyName)
     {
+        // 가져올 오브젝트의 keyName이 존재하지 않다면 함수 종료
+        if (!objectPools.ContainsKey(keyName)) return null;
+
+        // 반환할 오브젝트 
         GameObject obj = null;
 
-        // 가져올 objName 의 key 가 존재하지 않다면 함수 종료
-        if(objectPools.ContainsKey(objName)) return null;
-        
+        // keyName의 풀에 사용하지 않는 오브젝트가 없다면 
+        if (objectPools[keyName].Count == 0)
+        {
+            Debug.Log($"[PoolManager] {keyName}의 오브젝트 새로 생성");
+
+            // 새로 생성하고 obj 에 가져오기
+            int idx = objectPoolSettings.Find(x => x.keyName == keyName).index;
+            obj = CreateObject(idx, null);
+        }
+        // 사용하지 않는 오브젝트가 있다면
+        else
+            obj = objectPools[keyName].Dequeue();
+
+        // 오브젝트를 활성화 상태로 바꿔주기
+        obj.SetActive(true);
+        // 오브젝트를 자식에서 해제하기 
+        obj.transform.SetParent(null);
+
         // 오브젝트 반환 
         return obj;
     }
 
-    // 사용이 끝난 반환하는 함수
+    /// <summary>
+    /// 지정된 키 이름에 해당하는 오브젝트 풀로 GameObject를 반환하는 함수입니다.
+    /// </summary>
+    /// <param name="obj">반환될 오브젝트</param>
+    /// <param name="keyName">오브젝트 풀을 식별하는 키 이름</param>
+    public void ReturnObject(GameObject obj, string keyName)
+    {
+        // 오브젝트 비활성화
+        obj.SetActive(false);
+        // 오브젝트를 해당 keyName의 objectPoolDatas에 있는 부모 Transform에 자식 오브젝트로 넣어줌
+        int idx = objectPoolSettings.Find(x => x.keyName == keyName).index;
+        obj.transform.SetParent(objectPoolSettings[idx].parentTransform);
+        // keyName에 해당하는 오브젝트 풀에 저장 
+        objectPools[keyName].Enqueue(obj);
+    }
+
+    /// <summary>
+    /// 지정된 키 이름에 해당하는 오브젝트 풀로 GameObject를 반환하는 함수입니다.
+    /// </summary>
+    /// <param name="obj">반환될 오브젝트</param>
+    /// <param name="keyName">오브젝트 풀을 식별하는 키 이름</param>
+    /// <param name="destoryTime">오브젝트를 반환하기 전에 대기할 시간(초)</param>
+    public void ReturnObject(GameObject obj, string keyName, float destoryTime)
+    {
+        StartCoroutine(CoReturnObject(obj, keyName, destoryTime));
+    }
+
+    private IEnumerator CoReturnObject(GameObject obj, string keyName, float destoryTime)
+    {
+        // 일정 시간동안 대기 
+        yield return new WaitForSeconds(destoryTime);
+
+        // 오브젝트 비활성화
+        obj.SetActive(false);
+
+        // 자식 오브젝트로 넣어주기
+        int idx = objectPoolSettings.Find(x => x.keyName == keyName).index;
+        obj.transform.SetParent(objectPoolSettings[idx].parentTransform);
+
+        // keyName 의 풀에 저장 
+        objectPools[keyName].Enqueue(obj);
+    }
 }

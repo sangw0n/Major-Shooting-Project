@@ -1,5 +1,7 @@
+// # System
 using System.Collections;
-using System.Collections.Generic;
+
+// # Unity
 using UnityEngine;
 
 public class PlayerAttackCtrl : MonoBehaviour
@@ -54,7 +56,10 @@ public class PlayerAttackCtrl : MonoBehaviour
             // 무기 스프라이트 표시
             StartCoroutine(ChangeWeaponSprite());
             // 총알 발사 
-            Instantiate(bulletPrefab, weaponObj.transform.position, Quaternion.identity);
+
+            GameObject bullet = PoolManager.Instance.GetObject("BULLET");
+            // 생성한 Bullet 위치 초기화
+            bullet.transform.position = weaponObj.transform.position;
         }
     }
 

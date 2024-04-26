@@ -6,7 +6,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 {
     [Header("[# Move Var Header]")]
     [SerializeField] private int moveSpeed;
-    [SerializeField] private float inputDir;
+    private float inputDir;
     private Vector2 moveVec;
 
     // Object :: Component

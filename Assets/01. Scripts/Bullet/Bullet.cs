@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+// # Unity
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,15 +10,11 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRdr;
 
-    private void Awake()
+    private void OnEnable()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRdr = GetComponent<SpriteRenderer>();
 
-    }
-
-    private void Start()
-    {
         // 총알 색상 설정
         int randomColorIndex = Random.Range(0, 3);
         spriteRdr.color = SetColor(randomColorIndex);
@@ -27,10 +22,10 @@ public class Bullet : MonoBehaviour
         // 총알 움직이기 
         rigid.AddForce(transform.up * bulletSpeed, ForceMode2D.Impulse);
 
-        // Test :: Destory Object
-        Destroy(this.gameObject, 1.5f);
+        // 일정 시간 후 풀로 리턴
+        PoolManager.Instance.ReturnObject(this.gameObject, "BULLET", 2.0f);
     }
-
+    
     private Color SetColor(int index)
     {
         Color _color;
