@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private int bulletSpeed;
+    public Vector3 dirVec;
 
     // Bullet :: Component
     private Rigidbody2D rigid;
@@ -19,11 +20,19 @@ public class Bullet : MonoBehaviour
         int randomColorIndex = Random.Range(0, 3);
         spriteRdr.color = SetColor(randomColorIndex);
 
-        // 총알 움직이기 
-        rigid.AddForce(transform.up * bulletSpeed, ForceMode2D.Impulse);
-
         // 일정 시간 후 풀로 리턴
         PoolManager.Instance.ReturnObject(this.gameObject, "BULLET", 2.0f);
+    }
+
+    private void FixedUpdate()
+    {
+        rigid.velocity = dirVec * bulletSpeed;
+    }
+
+    // Function :: 총알 발사 방향 설정해주는 함수
+    public void InitDir(Vector3 dirVec)
+    {
+        this.dirVec = dirVec;
     }
 
     // Function :: 색을 설정해주는 함수
