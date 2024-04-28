@@ -987,16 +987,16 @@ MonoBehaviour:
     - waveName: Wave1
       monsters:
       - enemy: {fileID: 5138914509805872382, guid: 110b968f33043204ab964dac88723a62, type: 3}
-        monsterKeyType: 1
+        monsterKeyType: 2
         spawnPoint: {fileID: 820557456}
       - enemy: {fileID: 5138914509805872382, guid: 110b968f33043204ab964dac88723a62, type: 3}
-        monsterKeyType: 1
+        monsterKeyType: 2
         spawnPoint: {fileID: 198727792}
       - enemy: {fileID: 5138914509805872382, guid: 110b968f33043204ab964dac88723a62, type: 3}
-        monsterKeyType: 1
+        monsterKeyType: 2
         spawnPoint: {fileID: 557957149}
       - enemy: {fileID: 5138914509805872382, guid: 110b968f33043204ab964dac88723a62, type: 3}
-        monsterKeyType: 1
+        monsterKeyType: 2
         spawnPoint: {fileID: 597309108}
 --- !u!4 &2041213992
 Transform:

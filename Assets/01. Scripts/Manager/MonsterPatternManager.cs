@@ -50,6 +50,7 @@ public class MonsterPatternManager : MonoBehaviour
     [ContextMenu("Monster Init Function")]
     private void MonsterInit()
     {
+        // 현재 Wave 정보를 가져와 currentWave 에 초기화
         currentWave = stages[currentStageIndex].waves[currentWaveIndex];
 
         // 현재 스테이지의 웨이브에 맞는 몬스터들 배치
