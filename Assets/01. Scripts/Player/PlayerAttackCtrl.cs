@@ -25,7 +25,7 @@ public class PlayerAttackCtrl : MonoBehaviour
     {
         enemyDetector = GetComponent<EnemyDetector>();
 
-        // Test :: GetCompoenet 
+        // PlayerAttack :: GetCompoenet 
         weaponSpriteRdr = weaponObject.GetComponent<SpriteRenderer>();
     }
 
@@ -48,12 +48,12 @@ public class PlayerAttackCtrl : MonoBehaviour
             StartCoroutine(ChangeWeaponSprite());
 
             // 총알 발사 
-            GameObject bullet = PoolManager.Instance.GetObject("BULLET");
+            GameObject bullet = PoolManager.Instance.GetObject(ObjecyKeyType.BULLET);
             // 생성한 Bullet 위치 초기화
             bullet.transform.position = weaponObject.transform.position;
 
-            // 총알이 조준하는 오브젝트 방향으로 발사
-            if (enemyDetector.NearEnemyTarget != null)
+            // 타켓팅중인 오브젝트 방향으로 발사
+            if (enemyDetector.NearEnemyTarget != null && enemyDetector.NearEnemyTarget.gameObject.activeSelf) 
             {
                 // 방향
                 Vector3 direction = enemyDetector.NearEnemyTarget.transform.position - bullet.transform.position;
@@ -66,7 +66,7 @@ public class PlayerAttackCtrl : MonoBehaviour
             }
             else
             {
-                // 회전 각도 생성
+                //총알의 Z축을 기준으로 회전 적용
                 bullet.transform.rotation = Quaternion.Euler(Vector3.zero);
                 // 움직일 방향 구해주기
                 bullet.GetComponent<Bullet>().InitDir(transform.up);
