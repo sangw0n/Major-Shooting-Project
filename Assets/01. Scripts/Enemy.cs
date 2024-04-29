@@ -3,8 +3,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private int enemyInitHp = 100;
     [SerializeField] private int enemyHp;
     [SerializeField] private ObjecyKeyType keyType;
+
+    private void OnEnable()
+    {
+        enemyHp = enemyInitHp;
+    }
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
@@ -20,6 +26,9 @@ public class Enemy : MonoBehaviour
             {
                 // 풀로 다시 리턴
                 PoolManager.Instance.ReturnObject(this.gameObject, keyType);
+                
+                // 웨이브에 남아있는 적 카운트 차감
+                MonsterPatternManager.Instance.RemainingMosters--;
             }
         }
     }

@@ -9,7 +9,8 @@ public enum ObjecyKeyType
 {
     DEFAULT,
     BULLET,
-    MONSTER_A
+    MONSTER_A,
+    MONSTER_B
 }
 
 // 오브젝트 풀의 정보를 저장할 클래스 
