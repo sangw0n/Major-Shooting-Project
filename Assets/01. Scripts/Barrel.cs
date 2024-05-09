@@ -1,4 +1,4 @@
-// # Unity
+// # Unity  
 using System.Collections;
 using MajorProject;
 using UnityEngine;
@@ -18,14 +18,6 @@ public class Barrel : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
     }
-
-    // private void Explode()
-    // {
-    //     rigid.constraints = RigidbodyConstraints2D.None;
-    //     collider.enabled = false;
-
-    //     rigid.AddForce(Vector3.up * force, ForceMode2D.Impulse);
-    // }
 
     private IEnumerator OnCollisionEnter2D(Collision2D coll)
     {
