@@ -43,3 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3666854599
+    locked: 0
+  - name: Structure
+    uniqueID: 1651306101
+    locked: 0
+  - name: Entity
+    uniqueID: 3459768649
+    locked: 0
