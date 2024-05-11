@@ -10,11 +10,12 @@ namespace MajorProject
     public enum ObjecyKeyType
     {
         DEFAULT,
-        BULLET,
+        PLAYERBULLET,
         MONSTER_00,
         MONSTER_01,
         MONSTER_02,
         MONSTER_03,
+        MONSTERBULLET
     }
 
     // 오브젝트 풀의 정보를 저장할 클래스 

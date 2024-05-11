@@ -31,7 +31,7 @@ namespace MajorProject.Play
         {
             if (coll.gameObject.CompareTag("BULLET"))
             {
-                PoolManager.Instance.ReturnObject(coll.gameObject, ObjecyKeyType.BULLET);
+                PoolManager.Instance.ReturnObject(coll.gameObject, ObjecyKeyType.PLAYERBULLET);
 
                 if (--health <= 0)
                 {

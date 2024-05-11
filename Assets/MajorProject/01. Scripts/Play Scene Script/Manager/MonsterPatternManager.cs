@@ -91,9 +91,7 @@ namespace MajorProject.Play
 
                     // 웨이브를 전부 클리어하면 반복문
                     if (currentWaveIndex >= waves.Length)
-                    {
                         break;
-                    }
 
                     // 몬스터 소환
                     SpawnMonster();

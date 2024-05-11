@@ -12,6 +12,7 @@ namespace MajorProject.Play
         private Vector2 moveVec;
 
         // Object :: Component
+        private Rigidbody2D rigid;
         private Animator anim;
 
         // Animator :: Hash Value
@@ -21,14 +22,13 @@ namespace MajorProject.Play
         private void Awake()
         {
             // Component 가져오기
+            rigid = GetComponent<Rigidbody2D>();
             anim = GetComponent<Animator>();
-
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            if (moveVec != Vector2.zero)
-                transform.Translate(moveVec * moveSpeed * Time.deltaTime);
+            rigid.velocity = moveVec * moveSpeed;
         }
 
         private void LateUpdate()

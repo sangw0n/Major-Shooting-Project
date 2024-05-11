@@ -13,12 +13,12 @@ TagManager:
   - 
   - Water
   - UI
-  - ENEMY
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PLAYER_BULLET
+  - ENEMY_BULLET
+  - PLAYER
+  - MONSTER
+  - OBJECT
+  - MOVING_POINT
   - 
   - 
   - 

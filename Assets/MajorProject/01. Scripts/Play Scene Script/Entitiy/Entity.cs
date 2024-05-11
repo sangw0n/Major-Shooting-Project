@@ -10,5 +10,6 @@ namespace MajorProject.Play
     public class Entity : MonoBehaviour
     {
         [SerializeField] protected int health;
+
     }
 }

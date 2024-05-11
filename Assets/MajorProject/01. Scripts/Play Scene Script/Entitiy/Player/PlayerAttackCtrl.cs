@@ -50,7 +50,7 @@ namespace MajorProject.Play
                 StartCoroutine(ChangeWeaponSprite());
 
                 // 총알 발사 
-                GameObject bullet = PoolManager.Instance.GetObject(ObjecyKeyType.BULLET);
+                GameObject bullet = PoolManager.Instance.GetObject(ObjecyKeyType.PLAYERBULLET);
                 // 생성한 Bullet 위치 초기화
                 bullet.transform.position = weaponObject.transform.position;
 

@@ -32,7 +32,7 @@ namespace MajorProject.Play
             if (coroutine != null) StopCoroutine(coroutine);
 
             // 새로운 코루틴 시작
-            coroutine = StartCoroutine(CoReturnToPoolAfterDelay(1.0f));
+            coroutine = StartCoroutine(CoReturnToPoolAfterDelay(2.5f));
         }
 
         private void FixedUpdate()
@@ -74,7 +74,9 @@ namespace MajorProject.Play
         private IEnumerator CoReturnToPoolAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
-            PoolManager.Instance.ReturnObject(this.gameObject, ObjecyKeyType.BULLET);
+            PoolManager.Instance.ReturnObject(this.gameObject, ObjecyKeyType.PLAYERBULLET);
         }
+
+        
     }
 }
