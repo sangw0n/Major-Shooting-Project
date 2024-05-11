@@ -15,8 +15,6 @@ namespace MajorProject
         MONSTER_01,
         MONSTER_02,
         MONSTER_03,
-        MONSTER_04,
-        MONSTER_05
     }
 
     // 오브젝트 풀의 정보를 저장할 클래스 

@@ -32,7 +32,7 @@ namespace MajorProject.Play
             if (coroutine != null) StopCoroutine(coroutine);
 
             // 새로운 코루틴 시작
-            coroutine = StartCoroutine(CoReturnToPoolAfterDelay(5.0f));
+            coroutine = StartCoroutine(CoReturnToPoolAfterDelay(1.0f));
         }
 
         private void FixedUpdate()

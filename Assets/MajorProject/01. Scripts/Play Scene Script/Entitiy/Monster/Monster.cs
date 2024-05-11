@@ -27,6 +27,8 @@ namespace MajorProject.Play
                 {
                     // 풀로 다시 리턴
                     PoolManager.Instance.ReturnObject(this.gameObject, keyType);
+
+                    MonsterPatternManager.Instance.RemainingMonsterCount--;
                 }
             }
         }
