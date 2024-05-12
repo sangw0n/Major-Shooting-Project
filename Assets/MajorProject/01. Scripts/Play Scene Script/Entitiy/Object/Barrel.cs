@@ -19,15 +19,7 @@ namespace MajorProject.Play
             collider = GetComponent<Collider2D>();
         }
 
-        // private void Explode()
-        // {
-        //     rigid.constraints = RigidbodyConstraints2D.None;
-        //     collider.enabled = false;
-
-        //     rigid.AddForce(Vector3.up * force, ForceMode2D.Impulse);
-        // }
-
-        private IEnumerator OnCollisionEnter2D(Collision2D coll)
+        private IEnumerator OnTriggerEnter2D(Collider2D coll)
         {
             if (coll.gameObject.CompareTag("BULLET"))
             {
@@ -37,8 +29,11 @@ namespace MajorProject.Play
                 {
                     // 폭발하는 함수 
                     Destroy(this.gameObject);
+                    
                     // 폭발 이펙트 생성
-                    GameObject effect = Instantiate(explosionEffect, transform.position + effectPosOffset, Quaternion.identity);
+                    GameObject effect = 
+                    Instantiate(explosionEffect, transform.position + effectPosOffset, Quaternion.identity);
+
                     // 일정시간 후 폭발 이펙트 삭제
                     yield return new WaitForSeconds(0.5f);
                     Destroy(effect);

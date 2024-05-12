@@ -24,12 +24,11 @@ namespace MajorProject
     {
         [Header("[# Pool Key and Index]")]
         public ObjecyKeyType keyType; // 딕셔너리에 접근할 키
-        [HideInInspector] 
-        public int index; // 리스트 내에서의 객체 순서를 나타내는 인덱스
+        [HideInInspector] public int index; // 리스트 내에서의 객체 순서를 나타내는 인덱스
 
         [Header("[# Obejct Pool Settings]")]
-        public Transform parentTransform; // 부모 오브젝트 
         public GameObject objectPrefab; // 오브젝트 프리팹
+        public Transform parentTransform; // 부모 오브젝트 
         public int initObjetCount; // 오브젝트 초기 생성 개수
     }
 
@@ -44,8 +43,6 @@ namespace MajorProject
 
         // 키 이름에 따라 생성된 오브젝트 풀을 관리하는 딕셔너리
         private Dictionary<ObjecyKeyType, Queue<GameObject>> objectPools = new Dictionary<ObjecyKeyType, Queue<GameObject>>();
-
-        private Coroutine coroutine;
 
         private void Awake()
         {
@@ -80,10 +77,8 @@ namespace MajorProject
 
                 // 지정된 개수만큼 오브젝트를 생성하기 위한 반복문 
                 for (int idxx = 0; idxx < objectPoolSettings[idx].initObjetCount; idxx++)
-                {
                     // 생성된 오브젝트를  Queue 에 넣기
                     objQueue.Enqueue(CreateObject(idx, poolParentObj.transform));
-                }
 
                 // 3. obejctPoolsData[idx] 의 키와 오브젝트를 넣은 Queue를 딕셔너리에 추가
                 objectPools.Add(objectPoolSettings[idx].keyType, objQueue);

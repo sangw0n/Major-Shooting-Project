@@ -6,6 +6,7 @@ namespace MajorProject.Lobby
 
     // # Unity
     using UnityEngine;
+    using UnityEngine.SceneManagement;
     using UnityEngine.UI;
 
     public class ButtonManager : MonoBehaviour
@@ -20,13 +21,12 @@ namespace MajorProject.Lobby
         private void Start()
         {
             startButton.onClick.AddListener(() => OnClickStartBtn());
-
-
         }
 
         private void OnClickStartBtn()
         {
             Debug.Log("게임 시작!");
+            SceneManager.LoadScene("01. Stage1");
         }
     }
 }

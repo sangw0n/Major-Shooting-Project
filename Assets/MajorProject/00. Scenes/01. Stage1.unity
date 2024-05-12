@@ -1930,7 +1930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752502864b358a645bcf554cb3ef0d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 5
   force: 7
   explosionEffect: {fileID: 4052150709511087682, guid: afdf2d1b0ac2e18498f8a873ff5bd6d7, type: 3}
   effectPosOffset: {x: 0, y: 0.5, z: 0}

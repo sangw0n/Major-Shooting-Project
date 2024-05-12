@@ -81,7 +81,7 @@ namespace MajorProject.Play
         #region Move Fucntions
         private IEnumerator Move()
         {
-            // 움직임이 없으면 목표 포인트 지정
+            // 목표 포인트 지정
             if (!isMoveing) SetTargetPoint();
             isMoveing = true;
 
@@ -89,7 +89,6 @@ namespace MajorProject.Play
             targetDistance = Vector3.Distance(transform.position, targetPoint.position);
             if (targetDistance <= 0.01f)
             {
-                // 딜레이 후 움직이는 함수 실행
                 yield return coolTimeWaitForSeconds;
                 isMoveing = false;
                 monsterState = MonsterState.Attack;
@@ -129,7 +128,6 @@ namespace MajorProject.Play
                 yield return new WaitForSeconds(0.5f);
             }
 
-            // 딜레이 후 움직이는 함수 실행
             yield return coolTimeWaitForSeconds;
             isAttacking = false;
             isAttackCoroutine = false;
@@ -143,16 +141,13 @@ namespace MajorProject.Play
             isAttacking = false;
             isAttackCoroutine = false;
 
-            // 초기 HP Value 설정
             health = INIT_HP;
-            // Collider 활성화 
             collider.enabled = true;
-            // 몬스터 상태 설정
             monsterState = MonsterState.Default;
         }
+
         private void OnDisable()
         {
-            // Collider 비활성화 
             collider.enabled = false;
         }
 
@@ -160,17 +155,12 @@ namespace MajorProject.Play
         {
             if (coll.gameObject.CompareTag("BULLET"))
             {
-                // 풀로 리턴
                 PoolManager.Instance.ReturnObject(coll.gameObject, ObjecyKeyType.PLAYERBULLET);
-                // 데미지 받음
                 health -= coll.gameObject.GetComponent<Bullet>().ApplyDamage();
 
-                // 체력을 전부 소모해 사망했다면
                 if (health <= 0)
                 {
-                    // 풀로 다시 리턴
                     PoolManager.Instance.ReturnObject(this.gameObject, keyType);
-
                     MonsterPatternManager.Instance.RemainingMonsterCount--;
                 }
             }

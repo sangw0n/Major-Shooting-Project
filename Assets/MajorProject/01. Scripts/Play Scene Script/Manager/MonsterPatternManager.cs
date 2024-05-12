@@ -6,6 +6,7 @@ namespace MajorProject.Play
 
     // # Unity
     using UnityEngine;
+    using UnityEngine.SceneManagement;
 
     #region Game Pattern Class
     /// <summary> 몬스터 오브젝트와 스폰 위치를 정의할 클래스 </summary>
@@ -49,6 +50,7 @@ namespace MajorProject.Play
                 // 다음 웨이브가 없다면 스테이지 클리어
                 if (currentWaveIndex >= waves.Length)
                 {
+                    SceneManager.LoadScene("99. Game Clear");
                     Debug.Log("STAGE CLEAR!!");
                     return;
                 }
