@@ -40,6 +40,19 @@ namespace MajorProject.Play
             rigid.velocity = dirVec * bulletSpeed;
         }
 
+        // Function :: 플레이어 방향으로 총알이 날아가는 함수
+        public void TrackPlayer()
+        {
+            // 방향
+            Vector3 direction = GameManager.Instance.player.transform.position - transform.position;
+            // 2D 환경에서의 회전 각도 생성
+            float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+            //총알의 Z축을 기준으로 회전 적용
+            transform.rotation = Quaternion.Euler(0, 0, -angle);
+            // 움직일 방향 구해주기 
+            InitDir(direction.normalized);
+        }
+
         // Function :: 총알 발사 방향 설정해주는 함수
         public void InitDir(Vector3 dirVec)
         {
@@ -77,6 +90,6 @@ namespace MajorProject.Play
             PoolManager.Instance.ReturnObject(this.gameObject, ObjecyKeyType.PLAYERBULLET);
         }
 
-        
+
     }
 }

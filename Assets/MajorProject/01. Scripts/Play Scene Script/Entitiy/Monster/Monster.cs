@@ -5,7 +5,7 @@ namespace MajorProject.Play
 
     public enum MonsterState
     {
-        Default,
+        Idle,
         Moving,
         Attack
     }
@@ -15,7 +15,7 @@ namespace MajorProject.Play
         private const int INIT_HP = 100;
 
         [SerializeField] private ObjecyKeyType keyType;
-        [SerializeField] private MonsterState monsterState = MonsterState.Default;
+        [SerializeField] private MonsterState monsterState = MonsterState.Idle;
 
         [Header("[# Point Detector]")]
         [SerializeField] private Transform targetPoint;
@@ -34,7 +34,7 @@ namespace MajorProject.Play
         // Variable :: Bool
         private bool isMoveing = false;
         private bool isAttacking = false;
-        private bool isAttackCoroutine = false; // Attack Coroutine 작동 여부
+        // private bool isAttackCoroutine = false; // Attack Coroutine 작동 여부
 
         // Object :: Component
         private new Collider2D collider;
@@ -54,17 +54,14 @@ namespace MajorProject.Play
             {
                 switch (monsterState)
                 {
-                    case MonsterState.Default:
-                        monsterState = MonsterState.Moving;
-                        break;
+
+                    case MonsterState.Idle: SetTargetPoint(); break;
                     case MonsterState.Moving: StartCoroutine(Move()); break;
                     case MonsterState.Attack:
                         if (!isAttacking)
                         {
-                            // 공격중이 아니면 공격 함수 실행
                             isAttacking = true;
-                            if (!isAttackCoroutine)
-                                StartCoroutine(Attack());
+                            StartCoroutine(Attack());
                         }
                         break;
                 }
@@ -81,16 +78,17 @@ namespace MajorProject.Play
         #region Move Fucntions
         private IEnumerator Move()
         {
-            // 목표 포인트 지정
-            if (!isMoveing) SetTargetPoint();
-            isMoveing = true;
-
-            // 목표 지점에 도착하면 다음 상태 지정
+            // 목표 포인트와 몬스터 사이의 거리 구하기
             targetDistance = Vector3.Distance(transform.position, targetPoint.position);
+
+            // 목표 포인트에 도착하면 
             if (targetDistance <= 0.01f)
             {
                 yield return coolTimeWaitForSeconds;
+
+                // 움직임 비활성화    
                 isMoveing = false;
+                // 공격 상태 전환
                 monsterState = MonsterState.Attack;
             }
 
@@ -100,38 +98,41 @@ namespace MajorProject.Play
 
         private void SetTargetPoint()
         {
-            // 목표 좌표 설정하기
+            // 근처 포인트 중 목표 포인트 선택
             int randomIdx = Random.Range(0, pointNode.Length);
+            // 목표 포인트의 Key 값 가져오기 
+            int pointKey = pointNode[randomIdx].GetComponent<PointKey>().pointKey;
+
+            // 목표 포인트가 사용중이면 건너뜀 
+            if (PointNodeManager.Instance.pointUsageStatus[pointKey]) return;
+            
+            // 목표 포인트 사용 활성화 ( Bool )
+            PointNodeManager.Instance.pointUsageStatus[pointKey] = true;
+
+            // 목표 포인트로 움직이기 
             targetPoint = pointNode[randomIdx].transform;
+            monsterState = MonsterState.Moving;
+            isMoveing = true;
         }
         #endregion
 
+        // ToDo. 아래 코드 최적화
         private IEnumerator Attack()
         {
-            isAttackCoroutine = true;
-
             for (int i = 0; i < fireCount; i++)
             {
                 // 총알 발사 
                 GameObject bullet = PoolManager.Instance.GetObject(ObjecyKeyType.MONSTERBULLET);
-                // 생성한 Bullet 위치 초기화
+                // 플레이어 방향으로 총알 발사
                 bullet.transform.position = transform.position;
-                // 방향
-                Vector3 direction = GameManager.Instance.player.transform.position - bullet.transform.position;
-                // 2D 환경에서의 회전 각도 생성
-                float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-                //총알의 Z축을 기준으로 회전 적용
-                bullet.transform.rotation = Quaternion.Euler(0, 0, -angle);
-                // 움직일 방향 구해주기 
-                bullet.GetComponent<Bullet>().InitDir(direction.normalized);
+                bullet.GetComponent<Bullet>().TrackPlayer();
 
                 yield return new WaitForSeconds(0.5f);
             }
 
             yield return coolTimeWaitForSeconds;
             isAttacking = false;
-            isAttackCoroutine = false;
-            monsterState = MonsterState.Moving;
+            monsterState = MonsterState.Idle;
         }
 
         #region CallBack Functions
@@ -139,11 +140,8 @@ namespace MajorProject.Play
         {
             isMoveing = false;
             isAttacking = false;
-            isAttackCoroutine = false;
-
             health = INIT_HP;
             collider.enabled = true;
-            monsterState = MonsterState.Default;
         }
 
         private void OnDisable()

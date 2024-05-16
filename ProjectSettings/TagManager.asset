@@ -10,15 +10,15 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - OBJECT
   - Water
   - UI
   - PLAYER_BULLET
   - ENEMY_BULLET
   - PLAYER
   - MONSTER
-  - OBJECT
   - MOVING_POINT
+  - 
   - 
   - 
   - 

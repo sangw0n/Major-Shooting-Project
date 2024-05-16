@@ -142,11 +142,11 @@ MonoBehaviour:
   monsterState: 0
   targetPoint: {fileID: 0}
   pointNode: []
-  aimAreaSize: {x: 8, y: 3.5}
+  aimAreaSize: {x: 6, y: 3.5}
   aimAreaPosOffeset: {x: 0, y: 0, z: 0}
   pointLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 3072
   moveSpeed: 2
   fireCount: 3
 --- !u!50 &6166400479711101826
