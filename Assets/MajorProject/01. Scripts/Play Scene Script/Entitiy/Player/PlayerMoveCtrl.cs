@@ -8,8 +8,8 @@ namespace MajorProject.Play
     {
         [Header("[# Move Var Header]")]
         [SerializeField] private int moveSpeed;
-        private float inputDir;
         private Vector2 moveVec;
+        private float inputDir;
 
         // Object :: Component
         private Rigidbody2D rigid;

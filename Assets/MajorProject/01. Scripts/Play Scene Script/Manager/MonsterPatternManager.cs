@@ -40,6 +40,7 @@ namespace MajorProject.Play
         private int remainingMonsterCount; // 필드에 남아있는 몬스터 수
         private int currentWaveIndex = 0; // 현재 웨이브 인덱스 
 
+        // Property ( 프로퍼티 )
         public int CurrentWaveIndex
         {
             get { return currentWaveIndex; }
@@ -51,7 +52,6 @@ namespace MajorProject.Play
                 if (currentWaveIndex >= waves.Length)
                 {
                     SceneManager.LoadScene("99. Game Clear");
-                    Debug.Log("STAGE CLEAR!!");
                     return;
                 }
                 currentWave = waves[currentWaveIndex];
@@ -68,10 +68,7 @@ namespace MajorProject.Play
         private void Awake()
         {
             Instance = this;
-        }
 
-        private void Start()
-        {
             // 변수 초기화
             currentWave = waves[currentWaveIndex];
             remainingMonsterCount = currentWave.monsterSpawnInfos.Length;
