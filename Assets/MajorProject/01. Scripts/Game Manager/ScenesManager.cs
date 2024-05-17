@@ -14,12 +14,18 @@ namespace MajorProject.Manager
 
         private void Awake()
         {
-            Instance = this;
+            if(Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else Destroy(gameObject);
         }
 
-        private void LoadScene(string sceneName)
+        public void Load(string sceneName)
         {
             SceneManager.LoadScene(sceneName);
+            SceneManager.LoadScene("90. Game UI", LoadSceneMode.Additive);
         }
     }
 }

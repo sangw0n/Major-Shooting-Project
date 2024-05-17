@@ -1,14 +1,15 @@
-// # System
-using System.Collections;
-using System.Collections.Generic;
-
-// # Unity
-using UnityEngine;
-
-public class Point : MonoBehaviour
+namespace MajorProject.Play
 {
-    public Transform point;
-    public bool isUsing;
+    // # System
+    using System.Collections;
+    using System.Collections.Generic;
 
-    private void Start() => point = this.transform;
+    // # Unity
+    using UnityEngine;
+
+    public class Point : MonoBehaviour
+    {
+        public int key;
+        public bool isUsing;
+    }
 }

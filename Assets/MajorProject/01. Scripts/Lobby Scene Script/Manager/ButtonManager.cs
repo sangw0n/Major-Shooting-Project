@@ -3,6 +3,7 @@ namespace MajorProject.Lobby
     // # System
     using System.Collections;
     using System.Collections.Generic;
+    using MajorProject.Manager;
 
     // # Unity
     using UnityEngine;
@@ -25,8 +26,7 @@ namespace MajorProject.Lobby
 
         private void OnClickStartBtn()
         {
-            Debug.Log("게임 시작!");
-            SceneManager.LoadScene("01. Stage1");
+            ScenesManager.Instance.Load("01. Stage1");
         }
     }
 }
