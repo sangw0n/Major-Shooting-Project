@@ -40,7 +40,7 @@ namespace MajorProject.Play
 
         // Variable :: WaitForSeconds
         private WaitForSeconds coolTimeWaitForSeconds = new WaitForSeconds(0.5f);
-        private WaitForSeconds fireCoolTimeWaitForSeconds = new WaitForSeconds(0.3f);
+        private WaitForSeconds fireCoolTimeWaitForSeconds = new WaitForSeconds(0.5f);
 
         private void Awake()
         {

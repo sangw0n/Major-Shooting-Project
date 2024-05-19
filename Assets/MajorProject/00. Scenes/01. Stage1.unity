@@ -891,7 +891,7 @@ SpriteRenderer:
   m_SortingLayerID: -835198647
   m_SortingLayer: 3
   m_SortingOrder: 5
-  m_Sprite: {fileID: 536385843, guid: 03977c5b88229934aac628f481c040cf, type: 3}
+  m_Sprite: {fileID: 385795966, guid: dca6dde73c7b8494fa2b844a6b163790, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -946,7 +946,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7920255491077859679, guid: 2f4614ad2a9f31c428699eba150be157, type: 3}
   weaponObject: {fileID: 1023153170}
   curFireCooltime: 0
-  fireCooltime: 0.1
+  fireCooltime: 0.15
   isFire: 0
 --- !u!95 &570198778
 Animator:

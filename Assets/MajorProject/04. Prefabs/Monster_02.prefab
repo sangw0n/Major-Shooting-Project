@@ -148,7 +148,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3072
   moveSpeed: 2
-  fireCount: 3
+  targetDistance: 0
+  pointKey: 0
+  fireCount: 2
 --- !u!50 &1910296199788581774
 Rigidbody2D:
   serializedVersion: 4
