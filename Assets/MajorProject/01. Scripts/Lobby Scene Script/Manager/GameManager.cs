@@ -12,7 +12,7 @@ namespace MajorProject.Lobby
     {
         public IEnumerator Start()
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2.0f);
             SceneManager.LoadScene("00. Lobby");
         }
     }
