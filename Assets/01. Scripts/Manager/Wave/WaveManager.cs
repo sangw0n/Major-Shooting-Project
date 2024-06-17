@@ -43,7 +43,7 @@ public class WaveManager : MonoBehaviour
     ///<summary> Wave를 시작하는 함수 </summary>
     private IEnumerator Co_StartWave()
     {
-        Wave currentWave = waves[currentWaveIndex];
+        Wave currentWave = waves[currentWaveIndex];                                                                                     
 
         for(int index = 0; index < currentWave.spawnDatas.Length; index++)
         {
@@ -63,7 +63,7 @@ public class WaveManager : MonoBehaviour
     }
 
 
-    ///<summary> 적이 죽었을 때 ActiveEnemy List에서 삭제시키는 함수</summary>
+    ///<summary> 적이 죽었을 떄 ActiveEnemy List에 저장된 적을 삭제시키는 함수 </summary>
     public void RemoveActiveEnemy(Enemy enemy)
     {
         activeEnemys.Remove(enemy);

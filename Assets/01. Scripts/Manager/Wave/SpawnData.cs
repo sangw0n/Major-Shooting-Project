@@ -5,5 +5,5 @@ public class SpawnData
 {
     public GameObject[] enemyPrefab;
     public Transform[]  spawnPoint;
-    public float      spawnTime;
+    public float        spawnTime;
 }

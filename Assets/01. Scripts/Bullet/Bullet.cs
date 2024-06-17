@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Bullet : MonoBehaviour
@@ -24,26 +23,12 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        if( isBulletTargeted ) RotateTowardsTarget();
+        RotateTowardsTarget();
     }
 
     private void FixedUpdate()
     {
         Move();
-    }
-
-    private void Move()
-    {
-        rigid.MovePosition(rigid.position + ( direction * moveSpeed * Time.fixedDeltaTime ));
-    }
-
-    private void RotateTowardsTarget()
-    {
-        if( target == null ) return;
-
-        // 타겟 방향으로 회전함
-        float angle        = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     ///<summary> 총알의 변수들을 기본 세팅 해주는 함수 </summary>
@@ -53,5 +38,18 @@ public class Bullet : MonoBehaviour
         this.isBulletTargeted = isBulletTargeted;
         this.target           = target;
     }
-    
+
+    private void Move()
+    {
+        rigid.MovePosition(rigid.position + ( direction * moveSpeed * Time.fixedDeltaTime ));
+    }
+
+    private void RotateTowardsTarget()
+    {
+        if( target == null || !isBulletTargeted ) return;
+
+        // 타겟 방향으로 회전함
+        float angle        = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
 }
