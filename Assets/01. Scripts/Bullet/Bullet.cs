@@ -46,7 +46,7 @@ public class Bullet : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-    ///<summary> 총알을 기본 세팅 해주는 함수 </summary>
+    ///<summary> 총알의 변수들을 기본 세팅 해주는 함수 </summary>
     public void Initialize(Vector2 direction, bool isBulletTargeted, GameObject target = null)
     {
         this.direction        = direction;
