@@ -1,6 +1,6 @@
 public enum EnemyState
 {
-    Default,
+    SearchRoute,
     Move,
     Attack
 }

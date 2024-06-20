@@ -7,13 +7,21 @@ public abstract class Enemy : MonoBehaviour
 {
     // ----------- [ SerializeField Field ] -----------
     [SerializeField] private int maxHp;
+    [SerializeField] private int moveSpeed;
 
     // ----------- [ Private Field ] -----------
     private int curHp;
+
+    // ----------- [ protected Field ] -----------
+    protected bool isAttacking;
+
+    // ----------- [ Property Field ] -----------
+    public int  MoveSpeed => moveSpeed;
     
-    private void Start()
+    protected virtual void Start()
     {
-        curHp = maxHp;
+        curHp       = maxHp;
+        isAttacking = false;
     }
 
     public void TakeDamage(int damage)
@@ -25,7 +33,7 @@ public abstract class Enemy : MonoBehaviour
             Die();
         }
     }
-
+    
     public abstract void Attack();
 
     private void Die()

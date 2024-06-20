@@ -62,15 +62,15 @@ public class Bullet : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("ENEMY"))
-        {
-            if( isBulletTargeted && collision.gameObject == target ) return;
+    // private void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (collision.CompareTag("ENEMY"))
+    //     {
+    //         if( isBulletTargeted && collision.gameObject == target ) return;
             
-            collision.GetComponent<Enemy>().TakeDamage(damage);
+    //         collision.GetComponent<Enemy>().TakeDamage(damage);
 
-            Destroy(gameObject);
-        }
-    }
+    //         Destroy(gameObject);
+    //     }
+    // }
 }
