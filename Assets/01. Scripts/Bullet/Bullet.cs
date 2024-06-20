@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 {
     // ----------- [ SerializeField Field ] -----------
     [SerializeField] private int moveSpeed;             // 총알 움직임 속도
+    [SerializeField] private int damage;                // 총알 데미지
 
     // ----------- [ Private Field ] -----------
     private GameObject           target;                // 타겟
@@ -19,10 +20,17 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+
+        Destroy(gameObject, 3.0f);
     }
 
     private void Update()
     {
+        if(isBulletTargeted && target == null)
+        {
+            Destroy(gameObject);
+        }
+
         RotateTowardsTarget();
     }
 
@@ -36,7 +44,7 @@ public class Bullet : MonoBehaviour
     {
         this.direction        = direction;
         this.isBulletTargeted = isBulletTargeted;
-        this.target           = target;
+        this.target           = target;  
     }
 
     private void Move()
@@ -46,10 +54,23 @@ public class Bullet : MonoBehaviour
 
     private void RotateTowardsTarget()
     {
-        if( target == null || !isBulletTargeted ) return;
+        if( target == null ) return;
+        if ( !isBulletTargeted ) return;
 
         // 타겟 방향으로 회전함
         float angle        = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("ENEMY"))
+        {
+            if( isBulletTargeted && collision.gameObject == target ) return;
+            
+            collision.GetComponent<Enemy>().TakeDamage(damage);
+
+            Destroy(gameObject);
+        }
     }
 }

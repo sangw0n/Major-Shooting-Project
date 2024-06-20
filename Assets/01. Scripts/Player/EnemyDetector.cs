@@ -7,7 +7,6 @@ public class EnemyDetector : MonoBehaviour
     // ----------- [ SerializeField Field ] -----------
     [SerializeField] private Vector3      detectorSize;                 // 탐지기 크기
     [SerializeField] private Vector3      detectorPosOffset;            // 탐지기 위치 오프셋 
-    [SerializeField] private LayerMask    detectionLayer;               // 탐지할 특정 레이어 
 
     // ----------- [ Private Field ] -----------
     private GameObject                    closeEnemy;                   // 가까운 적
@@ -16,6 +15,7 @@ public class EnemyDetector : MonoBehaviour
     // ----------- [ Property Field ] -----------
     public  bool                          IsDetecting => isDetecting;   // isDetecting 프로퍼티 ( Get 기능 )
     public  GameObject                    CloseEnemy  => closeEnemy;    // closeEnemy  프로퍼티 ( Get 기능 )
+
 
     private void Update()
     {
@@ -30,7 +30,7 @@ public class EnemyDetector : MonoBehaviour
     ///<summary> 제일 가까운 적을 탐지하는 함수 </summary>
     private GameObject DetectCloseEnemy()
     {
-        Collider2D[] enemyInField       = Physics2D.OverlapBoxAll(transform.position + detectorPosOffset, detectorSize, detectionLayer);
+        Collider2D[] enemyInField       = Physics2D.OverlapBoxAll(transform.position + detectorPosOffset, detectorSize, 0, 1 << LayerMask.NameToLayer("Enemy"));
         float        targetDistance     = float.MaxValue;
         GameObject   result             = null;
 
@@ -40,7 +40,7 @@ public class EnemyDetector : MonoBehaviour
 
             if( distanceToEnemy < targetDistance )                                                         // 플레이어와 적의 거리가 현재 타겟과의 거리보다 가까우면
             {
-                targetDistance = distanceToEnemy;                                                          
+                targetDistance = distanceToEnemy;                                                           
                 result         = enemy.gameObject;                                                        
             }
         }
