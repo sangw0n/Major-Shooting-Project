@@ -6,15 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/MajorProject/00. Scenes/00. Lobby.unity
-    guid: ea74df2b5caafc04ab586bcd73f84278
-  - enabled: 1
-    path: Assets/MajorProject/00. Scenes/01. Stage1.unity
+    path: Assets/FunctionAsset/EasyTransitions/Demo/TransitionDemo.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/MajorProject/00. Scenes/90. Game UI.unity
-    guid: 1bdc792862021b44c99db327685962d9
+    path: Assets/00. Scenes/Main.unity
+    guid: a64d1616e1ad899498174a02398f4ade
   - enabled: 1
-    path: Assets/MajorProject/00. Scenes/99. Game Clear.unity
-    guid: cdc799f33296448429739239d4ea876e
+    path: Assets/00. Scenes/Stage01.unity
+    guid: 991e0b18857d181479a60958cc505468
   m_configObjects: {}

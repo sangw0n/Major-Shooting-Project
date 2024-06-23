@@ -54,12 +54,12 @@ public class Bullet : MonoBehaviour
 
     private void RotateTowardsTarget()
     {
-        if( target == null ) return;
+        if(  target == null ) return;
         if ( !isBulletTargeted ) return;
 
         // 타겟 방향으로 회전함
         float angle        = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward * 50);
     }
 
     // private void OnTriggerEnter2D(Collider2D collision)
